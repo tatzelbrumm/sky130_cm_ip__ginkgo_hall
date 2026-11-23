@@ -279,14 +279,16 @@ Self-field of the bias leads:
 ### 3.5 Block diagram (text)
 
 ```
- ibias(pin) ──┬─[bsrc]──┐                                 ┌── vhp (pin) / vhp_s (shared 2)
- iref ─[mirror, isel]─┘  │   ┌─────────────────────────┐   │
-                         ├──►│ 3.3 V switch matrix     │───┤   (inv: swap)
-                 avss ◄──┼───│ 4 contacts × {I+,I−,V+,V−}│   └── vhn (pin) / vhn_s (shared 3)
-                         │   │ × 3 plates (A, B, C)     │──── vsp, vsn (shared 0, 1)
- en, ph, sel, inv ──[HVL level shifters]──►└───────────┘
-                         │      │      │
-                       leaf A  leaf B  cross C   (n-well in p-sub, p+ guard ring to avss)
+ ibias (pin) -----+
+                  +-[bsrc]- I+ ->+----------------------------+-> vhp (pin) / vhp_s (shared 2)
+ iref -[mirror]---+              | 3.3 V switch matrix        |
+                                 | 4 contacts x {I+,I-,V+,V-} |-> vhn (pin) / vhn_s (shared 3)
+ avss <------------------ I- ----| x 3 plates (A, B, C)       |
+                                 | inv: swap vhp <-> vhn      |-> vsp, vsn (shared 0, 1)
+                                 +----------------------------+
+                                    ^       |       |       |
+ en, ph, sel, inv, bsrc,            |    leaf A  leaf B  cross C
+ isel, shr_en -> [HVL level shift] -+    (n-well in p-sub, p+ guard ring to avss)
 ```
 
 Switch matrix and phase control follow the Hall instrumentation and digital spin control of

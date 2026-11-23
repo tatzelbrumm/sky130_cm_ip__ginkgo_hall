@@ -5,7 +5,7 @@ Challenge #4). The Hall plate is an n-well region drawn as a ginkgo leaf (fan-sh
 blade plus petiole), so the layout art is the sensor. Two leaves are orthogonally coupled and
 operated with a 4-phase spinning-current switch matrix; a Greek-cross plate on the same die
 serves as reference. See **[Proposal.md](Proposal.md)** for I/O, functional description,
-target specification and test plan.
+target specification and test plan ([PDF](Proposal.pdf)).
 
 ## Regenerating the figures and numbers
 
@@ -16,6 +16,7 @@ Requirements: Python 3 with `numpy`, `scipy`, `matplotlib`, and the `klayout` Py
 python3 analysis/plot_leaf.py                # -> doc/ginkgo_leaf_pair.png (geometry plot)
 python3 analysis/fd_hall.py                  # FD plate model -> analysis/fd_results.json
 python3 analysis/estimates.py > analysis/estimates.txt   # all [estimate] numbers of Proposal.md
+doc/make_pdf.sh                              # -> Proposal.pdf (needs pandoc + Playwright Chromium)
 ```
 
 Layout (GDS), schematics and sign-off scripts follow after the proposal review.
