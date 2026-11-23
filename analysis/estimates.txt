@@ -1,0 +1,51 @@
+=== material / sheet ===
+t_eff, N_eff, mu_n (typ)           0.60um 8.91e+16 0.069m2/Vs t = xj - STI - depletion; N from Rsq = 1/(q N mu(N) t)
+t_eff, N_eff, mu_n (lo_mu)         0.70um 1.14e+17 0.063m2/Vs t = xj - STI - depletion; N from Rsq = 1/(q N mu(N) t)
+t_eff, N_eff, mu_n (hi_mu)         0.50um 8.18e+16 0.071m2/Vs t = xj - STI - depletion; N from Rsq = 1/(q N mu(N) t)
+mu_H                               0.073/0.079/0.081 m2/Vs      mu_H = r_H * mu_n
+
+=== plate (one leaf) ===
+G_H (FD)                                  0.781 -          fd_hall.py, all 4 phases equal (reciprocity)
+R_in/Rsq, R_out/Rsq (FD)            2.625 2.625 -          fd_hall.py
+R_in 30C                           3255/4463/5670 Ohm        R_in = (R_in/Rsq) * Rsq corners
+R(T)/R(30C) at 0, 110 C             0.963 1.169 -          1 + tc1 dT + tc2 dT^2
+R(T)/R(30C) at -40 C                      0.935 -          same, extrapolated below model range?
+R_in worst (max corner, 110C)              6627 Ohm        
+R_in best (min corner, 0C)                 3133 Ohm        
+S_I                                  70/105/137 V/(A T)    S_I = G_H * mu_H * Rsq
+S_V                                21.6/23.5/24.2 mV/(V T)   S_V = S_I / R_in = G_H mu_H / (R_in/Rsq)
+S_I spec (incl. +-25% mu_H)          53/105/171 V/(A T)    
+S_V spec (incl. +-25% mu_H)        16.2/23.5/30.2 mV/(V T)   
+S_A spec at 200 uA (incl.)         10.5/21.0/34.2 mV/T       
+S_A at 200 uA                              21.0 mV/T       S_I * I_bias   (= uV/mT)
+S_A range at 200 uA                  14.1..27.4 mV/T       
+V_plate at 200 uA, 30C             0.65/0.89/1.13 V          I * R_in
+V_plate at 300 uA, max, 110C               1.99 V          compliance check vs 3.3 V
+P_plate at 200 uA                         0.179 mW         I^2 R_in
+P from avdd if biased on-chip              0.66 mW         3.3 V * I
+
+=== noise ===
+thermal v_n (one leaf)                      8.6 nV/rtHz    sqrt(4kT R_out), 300 K
+B_n thermal, one leaf 200 uA               0.41 uT/rtHz    v_n / S_A
+B_n thermal, pair (each 200 uA)            0.29 uT/rtHz    R_out/2, same S_A
+B_n worst (383 K, max R, min S_I incl. -25%)         1.12 uT/rtHz    
+B_n rms in 10 Hz (thermal only)           1.297 uT         
+B_n rms in 1000 Hz (thermal only)        12.968 uT         
+
+=== offset / linearity / bandwidth ===
+raw offset 5..50 mT -> V at 200uA     105..1048 uV         B_off * S_A
+(mu_H B)^2 at B=0.1 T                     0.007 %          magnetoresistance scale, max mu_H
+(mu_H B)^2 at B=0.5 T                     0.165 %          magnetoresistance scale, max mu_H
+(mu_H B)^2 at B=1.0 T                     0.659 %          magnetoresistance scale, max mu_H
+tau, f3dB with C_load=15 pF        70ns 2276kHz            (R_out + R_sw) C
+tau, f3dB with C_load=50 pF        233ns 683kHz            (R_out + R_sw) C
+tau, f3dB with C_load=115 pF       536ns 297kHz            (R_out + R_sw) C
+phase settling 0.01% (9.2 tau), worst         7.22 us         R max/110C, 115 pF
+-> max phase rate (settle <= 25%)            35 kHz        
+stray B of 300 uA wire at 2 um             30.0 uT         mu0 I / (2 pi d)
+stray B of 300 uA wire at 5 um             12.0 uT         mu0 I / (2 pi d)
+skin depth Al at 100 kHz                    266 um         sqrt(rho/(pi f mu0))
+
+=== area ===
+leaf n-well area                           4715 um^2       shoelace on generated outline
+leaf bounding box                    113.6x71.1 um         
