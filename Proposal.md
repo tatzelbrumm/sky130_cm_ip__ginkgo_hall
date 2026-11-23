@@ -191,12 +191,12 @@ rotational symmetry**. This has three consequences.
    misalignment and package stress break the mirror symmetry and cause a raw offset. Typical
    integrated silicon Hall plates show 5–50 mT equivalent [16]. For a *linear* plate, spinning
    current cancels this offset for any outline, because of reciprocity (R_ij,kl(B) = R_kl,ij(−B))
-   [8, 9].
+   [8, 9; 21, Sec. 3.1].
 
 3. **The residual after spinning comes from nonlinearity.** The main nonlinear terms are:
    - the junction field effect (depletion width depends on the local plate potential),
    - self-heating gradients,
-   - thermoelectric voltages at the contacts [9].
+   - thermoelectric voltages at the contacts [9; 21, Sec. 3.2.2].
 
    These terms cancel only if every phase has the same potential distribution. In a plate
    without 90° symmetry, the "axial" phases (φ1, φ3) and the "transverse" phases (φ2, φ4)
@@ -254,7 +254,7 @@ can also be selected. This lets the measurement separate:
 
 ### 3.4 Spinning-current sequence
 
-Phases are selected by `ph[1:0]`. Contacts are listed in perimeter order P, R, N, L.
+Phases are selected by `ph[1:0]` [8; 21, Sec. 3.1]. Contacts are listed in perimeter order P, R, N, L.
 
 | `ph` | Phase | Leaf A: I+ → I− / V+, V− | Leaf B (when `sel` = 10) |
 |---|---|---|---|
@@ -288,6 +288,9 @@ Self-field of the bias leads:
                          │      │      │
                        leaf A  leaf B  cross C   (n-well in p-sub, p+ guard ring to avss)
 ```
+
+Switch matrix and phase control follow the Hall instrumentation and digital spin control of
+[21, Sec. 3.5.1 and 3.5.3], here without the on-chip amplifier and accumulator.
 
 Size of the switch matrix: 3 plates × 4 contacts × 4 functions = 48 transmission gates, plus
 4 for `inv` and 4 for `shr_en`. They are 3.3 V `g5v0d10v5` devices sized for R_on ≈ 200 Ω
@@ -487,9 +490,11 @@ sensors. It has no on-chip plate.
   will therefore convert the smooth outline into an octilinear (0/45/90°) polygon on a 5 nm
   grid, and draw the veins as Manhattan shapes. G_H and R_in will be re-checked with the FD
   model on that exact polygon.
-- To be added at later stages: Xschem schematic, ngspice testbenches (the plate as an
-  FD-derived resistor/Hall-source macro-model), Magic/KLayout DRC and LVS sign-off, and the
-  slot wrapper. The structure will follow the challenge repository template.
+- To be added at later stages: Xschem schematic, ngspice testbenches, Magic/KLayout DRC and
+  LVS sign-off, and the slot wrapper. In the testbenches, the plate is a SPICE macro-model.
+  It is built from a box-integration discretization of the leaf outline: the galvanomagnetic
+  conductance matrix is split into symmetric (resistor) and antisymmetric (Hall) elements and
+  written out as netlist lines [21, Ch. 2]. The structure will follow the challenge repository template.
 - Open-source tools only. AI was used to support drafting; the user of the block does not need
   it.
 - License: Apache 2.0.
@@ -516,3 +521,4 @@ sensors. It has no on-chip plate.
 18. J. W. von Goethe, *Gingo biloba* (first version 15 Sept. 1815; *West-östlicher Divan*, 1819). Text as given in https://de.wikipedia.org/wiki/Gingo_biloba
 19. *Ginkgo biloba* (botanical name). https://en.wikipedia.org/wiki/Ginkgo_biloba
 20. D. M. Caughey, R. E. Thomas, "Carrier mobilities in silicon empirically related to doping and field," *Proc. IEEE* 55(12), 2192–2193 (1967). doi:10.1109/PROC.1967.6123. (The fit parameters used in `estimates.py` are textbook values and were not verified within the proposal timebox.)
+21. C. Maier, *CMOS Circuits for Magnetic Microsensors based on Simple Sensor Models* (extended version of the doctoral thesis "Equivalent circuit models and interface circuits for CMOS microsensors," Diss. ETH No. 13532), ETH Zürich, 2000. https://github.com/tatzelbrumm/Zeugnisse/blob/master/PhD.pdf — Ch. 2: box-integration Hall-plate models and their SPICE netlist translation; Ch. 3: spinning-current method, sensitivity to nonidealities, Hall instrumentation, digital spin control.
