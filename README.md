@@ -7,18 +7,18 @@ operated with a 4-phase spinning-current switch matrix; a Greek-cross plate on t
 serves as reference. See **[Proposal.md](Proposal.md)** for I/O, functional description,
 target specification and test plan.
 
-## Regenerating the views
+## Regenerating the figures and numbers
 
 Requirements: Python 3 with `numpy`, `scipy`, `matplotlib`, and the `klayout` Python module
-(`pip install klayout`), or a KLayout installation.
+(the latter only for later layout scripts).
 
 ```
-python3 layout/gen_ginkgo_hall.py            # -> layout/ginkgo_hall.gds, layout/ginkgo_hall.png
+python3 analysis/plot_leaf.py                # -> doc/ginkgo_leaf_pair.png (geometry plot)
 python3 analysis/fd_hall.py                  # FD plate model -> analysis/fd_results.json
 python3 analysis/estimates.py > analysis/estimates.txt   # all [estimate] numbers of Proposal.md
 ```
 
-DRC (KLayout, open_pdks sky130A deck): see the header of `layout/gen_ginkgo_hall.py`.
+Layout (GDS), schematics and sign-off scripts follow after the proposal review.
 
 ## License
 

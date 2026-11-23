@@ -96,6 +96,8 @@ line("S_A range at 200 uA", f"{SI['min']*I_typ*1e3:.1f}..{SI['max']*I_typ*1e3:.1
 Vp = {k: v * I_typ for k, v in Rin.items()}
 line("V_plate at 200 uA, 30C", f"{Vp['min']:.2f}/{Vp['typ']:.2f}/{Vp['max']:.2f}", "V", "I * R_in")
 line("V_plate at 300 uA, max, 110C", f"{I_max*Rin['max']*fT(110):.2f}", "V", "compliance check vs 3.3 V")
+line("P_plate at 300 uA, max, 110C", f"{I_max**2*Rin['max']*fT(110)*1e3:.2f}", "mW", "I^2 R_in worst")
+line("V_plate at 500 uA (abs max), max, 110C", f"{0.5e-3*Rin['max']*fT(110):.2f}", "V", "abs-max check")
 P = I_typ ** 2 * Rin["typ"]
 line("P_plate at 200 uA", f"{P*1e3:.3f}", "mW", "I^2 R_in")
 line("P from avdd if biased on-chip", f"{3.3*I_typ*1e3:.2f}", "mW", "3.3 V * I")
@@ -112,6 +114,7 @@ line("B_n thermal, pair (each 200 uA)", f"{Bn2*1e6:.2f}", "uT/rtHz", "R_out/2, s
 Bn_hot = math.sqrt(4 * kB * 383 * Rsq["max"] * r_out * fT(110)) / (SI["min"] * I_typ)
 Bn_hot = Bn_hot / (1 - u)
 line("B_n worst (383 K, max R, min S_I incl. -25%)", f"{Bn_hot*1e6:.2f}", "uT/rtHz", "")
+line("B_n worst, pair", f"{Bn_hot/math.sqrt(2)*1e6:.2f}", "uT/rtHz", "R_out/2")
 for bw in (10.0, 1e3):
     line(f"B_n rms in {bw:g} Hz (thermal only)", f"{Bn*math.sqrt(bw)*1e6:.3f}", "uT", "")
 

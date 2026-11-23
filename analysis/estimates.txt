@@ -21,6 +21,8 @@ S_A at 200 uA                              21.0 mV/T       S_I * I_bias   (= uV/
 S_A range at 200 uA                  14.1..27.4 mV/T       
 V_plate at 200 uA, 30C             0.65/0.89/1.13 V          I * R_in
 V_plate at 300 uA, max, 110C               1.99 V          compliance check vs 3.3 V
+P_plate at 300 uA, max, 110C               0.60 mW         I^2 R_in worst
+V_plate at 500 uA (abs max), max, 110C         3.31 V          abs-max check
 P_plate at 200 uA                         0.179 mW         I^2 R_in
 P from avdd if biased on-chip              0.66 mW         3.3 V * I
 
@@ -29,6 +31,7 @@ thermal v_n (one leaf)                      8.6 nV/rtHz    sqrt(4kT R_out), 300 
 B_n thermal, one leaf 200 uA               0.41 uT/rtHz    v_n / S_A
 B_n thermal, pair (each 200 uA)            0.29 uT/rtHz    R_out/2, same S_A
 B_n worst (383 K, max R, min S_I incl. -25%)         1.12 uT/rtHz    
+B_n worst, pair                            0.79 uT/rtHz    R_out/2
 B_n rms in 10 Hz (thermal only)           1.297 uT         
 B_n rms in 1000 Hz (thermal only)        12.968 uT         
 
